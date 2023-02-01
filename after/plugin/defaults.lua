@@ -74,6 +74,21 @@ require('lspconfig').texlab.setup {
   }
 }
 
+require("lspconfig").diagnosticls.setup {
+  filetypes = { "python" },
+  init_options = {
+    formatters = {
+      black = {
+        command = "black",
+        args = { "--quiet", "-" },
+        rootPatterns = { "pyproject.toml" },
+      },
+      formatFiletypes = {
+        python = { "black" }
+      }
+    }
+  }
+}
 
 vim.opt.relativenumber = true
 -- Use vscode colorscheme with a transparent background and a green number line foreground.
@@ -113,7 +128,7 @@ vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 vim.api.nvim_set_keymap(
   "n",
   "<space>fb",
-  ":Telescope file_browser",
+  ":Telescope file_browser<CR>",
   { noremap = true }
 )
 
